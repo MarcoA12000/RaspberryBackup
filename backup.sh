@@ -1,7 +1,10 @@
 #!/bin/bash
+exec 1>/var/log/BackupPi_$(date +\%Y\%m\%d).log 2>&1
+# die vorheroge Zeile leitet jede Ausgabe in eine Log-Datei um...
 # Quelle des Skripts: https://raspberry.tips/raspberrypi-einsteiger/raspberry-pi-datensicherung-erstellen
 # Modifiziert von Lukas Knoeller (hobbyblogging.de) & Marco Andreas (nags.de)
 # QUELLEN: https://github.com/lkn94/RaspberryBackup
+#          https://github.com/MarcoA12000/RaspberryBackup/edit/MarcoA12000-patch-01
 #          https://hilftdirweiter.de/backup-des-raspberry-pi-im-laufenden-betrieb/
 #          https://hobbyblogging.de/raspberry-pi-vollautomatisch-sichern
 #
@@ -65,7 +68,7 @@ DIENSTE_START_STOP="service mysql"
  
 
 #Info-Mail bzgl. START versenden
-echo "Der Server $(hostname) hat am $(date +%A), den $(date +%d.%m.%Y) um $(date +%T) Uhr das Backup-Skript gestartet..." | mail -s"$(hostname) - Backup Skript" $Mail_to
+echo "Der Server $(hostname) hat am $(date +%A), den $(date +%d.%m.%Y) um $(date +%T) Uhr das Backup-Skript gestartet... Die Log-Datei finden Sie unter: /var/log/BackupPi_$(date +\%Y\%m\%d).log" | mail -s"$(hostname) - Backup Skript" $Mail_to
 
 
 # Stoppe Dienste vor Backup - ggf. Zeile einkommentieren
@@ -119,5 +122,8 @@ umount ${BACKUP_PFAD}
 
 
 #Info-Mail bzgl. ENDE versenden
-echo "Der Server $(hostname) hat am $(date +%A), den $(date +%d.%m.%Y) um $(date +%T) Uhr das Backup-Skript  ausgefuehrt und beendet." | mail -s"$(hostname) - Backup Skript" $Mail_to
+echo "Der Server $(hostname) hat am $(date +%A), den $(date +%d.%m.%Y) um $(date +%T) Uhr das Backup-Skript ausgefuehrt und beendet. Die Log-Datei finden Sie unter: /var/log/BackupPi_$(date +\%Y\%m\%d).log" | mail -s"$(hostname) - Backup Skript" $Mail_to
 
+
+
+exit 0
