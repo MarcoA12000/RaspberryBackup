@@ -4,7 +4,7 @@ exec 1>/var/log/BackupPi_$(date +\%Y\%m\%d).log 2>&1
 # Quelle des Skripts: https://raspberry.tips/raspberrypi-einsteiger/raspberry-pi-datensicherung-erstellen
 # Modifiziert von Lukas Knoeller (hobbyblogging.de) & Marco Andreas (nags.de)
 # QUELLEN: https://github.com/lkn94/RaspberryBackup
-#          https://github.com/MarcoA12000/RaspberryBackup/edit/MarcoA12000-patch-01
+#          https://github.com/MarcoA12000/RaspberryBackup/tree/MarcoA12000-patch-01
 #          https://hilftdirweiter.de/backup-des-raspberry-pi-im-laufenden-betrieb/
 #          https://hobbyblogging.de/raspberry-pi-vollautomatisch-sichern
 #
