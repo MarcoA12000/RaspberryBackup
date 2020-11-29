@@ -16,7 +16,12 @@ BACKUP_NAME=”Sicherung”
 dd if=/dev/mmcblk0 of=${BACKUP_PFAD}/${BACKUP_NAME}-$(date +%Y%m%d).img bs=1MB
 
 #Alte Sicherung löschen
-pushd ${BACKUP_PFAD}; ls -tr ${BACKUP_PFAD}/${BACKUP_NAME}* | head -n -${BACKUP_ANZAHL} | xargs rm; popd
+#OLD: pushd ${BACKUP_PFAD}; ls -tr ${BACKUP_PFAD}/${BACKUP_NAME}* | head -n -${BACKUP_ANZAHL} | xargs rm; popd
+BACKUP_ZAEHLER=$(ls ${BACKUP_PFAD} -1 | wc -l) || 0
+if [ "${BACKUP_ZAEHLER}" -gt "${BACKUP_ANZAHL}" ]
+then
+pushd ${BACKUP_PFAD} || return; ls -tr ${BACKUP_PFAD}/${BACKUP_NAME}* | head -n -${BACKUP_ANZAHL} | xargs rm; popd || return
+fi
 
 #Festplatte auswerfen
 umount /mnt/nas
